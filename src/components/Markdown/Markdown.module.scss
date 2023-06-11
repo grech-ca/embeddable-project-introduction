@@ -1,0 +1,28 @@
+@import '../../style/_variables';
+
+.Markdown {
+  font-family: arial;
+  color: $text;
+
+  img {
+    border-radius: 4px;
+    width: auto;
+    max-width: 100%;
+  }
+
+  a {
+    text-decoration: none;
+    color: $link;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  code {
+    border: 1px solid $border;
+    padding: 8px;
+    border-radius: 4px;
+    display: block;
+  }
+}

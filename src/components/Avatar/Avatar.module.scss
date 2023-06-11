@@ -1,0 +1,21 @@
+@import '../../style/variables';
+
+$avatar-size: 58px;
+
+.AvatarContainer {
+  display: inline-block;
+  height: $avatar-size;
+  width: $avatar-size;
+  min-height: $avatar-size;
+  min-width: $avatar-size;
+  border-radius: 50%;
+  overflow: hidden;
+  background: $skeleton;
+  margin-right: 16px;
+
+  .AvatarImage {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}

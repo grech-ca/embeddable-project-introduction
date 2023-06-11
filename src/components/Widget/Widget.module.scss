@@ -1,0 +1,28 @@
+@import '../../style/variables';
+
+.Widget {
+  font-family: Arial;
+  display: flex;
+  align-items: center;
+  border: 1.5px solid;
+  border-color: $border;
+  border-radius: 8px;
+  padding-inline: 14px;
+  padding-block: 10px;
+  padding-right: 24px;
+  background: $background;
+  color: $text;
+  width: fit-content;
+  max-width: 35%;
+  width: 100%;
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  outline: none;
+  cursor: pointer;
+
+  p {
+    font-size: 14px;
+    text-align: left;
+  }
+}
