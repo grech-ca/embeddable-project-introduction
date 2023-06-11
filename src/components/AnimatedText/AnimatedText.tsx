@@ -14,7 +14,7 @@ export interface AnimatedTextRef {
 
 const delay = (duration: number) => new Promise(resolve => setTimeout(resolve, duration));
 
-const CHAR_DELAY = 60;
+const CHAR_DELAY = 30;
 const COMMA_DELAY = 600;
 
 export const AnimatedText = forwardRef<AnimatedTextRef, AnimatedTextProps>(

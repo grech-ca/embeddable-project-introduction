@@ -26,30 +26,34 @@ export const Modal: FunctionComponent<ModalProps> = ({ onClose, visible = false 
   useEscape(onClose);
   const modalOverlayRef = useClickAway<HTMLDivElement>(onClose);
 
+  const overlay = modalOverlayRef.current;
+  const modal = modalRef.current;
+
+  const refsReady = overlay && modal;
+
   useEffect(() => {
-    const overlay = modalOverlayRef.current;
-    const modal = modalRef.current;
+    if (refsReady) {
+      if (visible) {
+        overlay.style.display = 'flex';
 
-    if (overlay && modal && visible) {
-      overlay.animate([{ opacity: 0 }, { opacity: 1 }], {
-        duration: 500,
-        easing: 'ease',
-        fill: 'forwards',
-      });
+        overlay.animate([{ opacity: 0 }, { opacity: 1 }], {
+          duration: 500,
+          easing: 'ease',
+          fill: 'forwards',
+        });
 
-      modal.animate([{ transform: 'translateY(50px)' }, { transform: 'translateY(0)' }], {
-        duration: 500,
-        easing: 'ease',
-      });
+        modal.animate([{ transform: 'translateY(50px)' }, { transform: 'translateY(0)' }], {
+          duration: 500,
+          easing: 'ease',
+        });
+      } else {
+        overlay.style.display = 'none';
+      }
     }
-  }, [visible, modalOverlayRef]);
+  }, [visible, refsReady, overlay, modal]);
 
   return createPortal(
-    <div
-      class={styles.ModalOverlay}
-      ref={modalOverlayRef}
-      style={{ display: visible ? undefined : 'none', opacity: 0 }}
-    >
+    <div class={styles.ModalOverlay} ref={modalOverlayRef}>
       <div class={styles.Modal} ref={modalRef}>
         <CloseButton onClick={onClose} />
         <div class={styles.ModalHeading}>

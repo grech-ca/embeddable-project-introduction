@@ -4,6 +4,8 @@ import { Author } from 'types';
 
 const cache = new Map();
 
+const GH_TOKEN = '';
+
 export const useRepository = (project: string) => {
   const [author, repository] = useMemo(() => {
     return project.split('/');
@@ -22,10 +24,18 @@ export const useRepository = (project: string) => {
       setLoading(false);
     } else {
       void Promise.all([
-        fetch(`https://api.github.com/repos/${author}/${repository}/readme`).then(res =>
+        fetch(`https://api.github.com/repos/${author}/${repository}/readme`, {
+          headers: {
+            Authorization: `Bearer ${GH_TOKEN}`,
+          },
+        }).then(res =>
           res.json(),
         ),
-        fetch(`https://api.github.com/users/${author}`).then(res => res.json()),
+        fetch(`https://api.github.com/users/${author}`, {
+          headers: {
+            Authorization: `Bearer ${GH_TOKEN}`,
+          },
+        }).then(res => res.json()),
       ]).then(([{ content }, author]) => {
         const description = atob(content);
 

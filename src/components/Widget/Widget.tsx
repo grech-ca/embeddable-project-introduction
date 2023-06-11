@@ -37,7 +37,7 @@ export const Widget: FunctionComponent = () => {
           [
             {
               opacity: 0,
-              transform: 'translate(100%, 200%) scale(0.5)',
+              transform: 'translate(50%, 200%) scale(0.5)',
             },
             {
               opacity: 1,
