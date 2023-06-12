@@ -13,7 +13,7 @@ import { Modal } from '../Modal';
 export const Widget: FunctionComponent = () => {
   const widgetRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<AnimatedTextRef>(null);
-  const { loading } = useRepository();
+  const { loading, author } = useRepository();
 
   const [dismissed, setDismissed] = useState(false);
   const [detailsShown, setDetailsShown] = useState(false);
@@ -50,7 +50,7 @@ export const Widget: FunctionComponent = () => {
     }
   }, [animatedOnce, loading]);
 
-  if (dismissed) return null;
+  if (dismissed || loading || !author) return null;
 
   return (
     <Fragment>
@@ -62,7 +62,7 @@ export const Widget: FunctionComponent = () => {
         onClick={showDetails}
         ref={widgetRef}
       >
-        <Avatar src="https://avatars.githubusercontent.com/u/54347665?v=4" />
+        <Avatar src={author.avatar_url} />
         <AnimatedText ref={textRef} shouldAnimate={!animatedOnce}>
           Hi, I’m Mike, and this is my pet project called Tweeter, click the popup to read more
           about it.

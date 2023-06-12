@@ -38,7 +38,7 @@ export const useRepository = () => {
         setAuthorData(author);
         setLoading(false);
 
-        cache.set(GH_TOKEN, { author, description });
+        cache.set(VITE_APP_GH_TOKEN, { author, description });
       });
     }
   }, []);
