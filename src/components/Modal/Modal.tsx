@@ -35,6 +35,7 @@ export const Modal: FunctionComponent<ModalProps> = ({ onClose, visible = false 
     if (refsReady) {
       if (visible) {
         overlay.style.display = 'flex';
+        overlay.scrollTo({ top: 0 });
 
         overlay.animate([{ opacity: 0 }, { opacity: 1 }], {
           duration: 500,
@@ -59,8 +60,8 @@ export const Modal: FunctionComponent<ModalProps> = ({ onClose, visible = false 
       <div class={styles.Modal} ref={modalRef}>
         <div class={styles.ModalHeader}>
           <div class={styles.HeaderLeft}>
-            <Avatar src={author.avatar_url} />
-            <p>{author.name}</p>
+            <Avatar src={author.avatar_url} className={styles.ModalAvatar} />
+            <p class={styles.AuthorName}>{author.name}</p>
           </div>
           <div class={styles.HeaderRight}>
             <CloseButton onClick={onClose} className={styles.ModalClose} />

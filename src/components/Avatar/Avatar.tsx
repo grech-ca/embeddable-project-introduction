@@ -1,17 +1,16 @@
 import { FunctionComponent } from 'preact';
-import { useState } from 'preact/compat';
+import clsx from 'clsx';
 
 import styles from './Avatar.module.scss';
 
 export interface AvatarProps {
   src?: string;
+  className?: string
 }
 
-export const Avatar: FunctionComponent<AvatarProps> = ({ src }) => {
-  const [loading, setLoading] = useState(true);
-
+export const Avatar: FunctionComponent<AvatarProps> = ({ src, className }) => {
   return (
-    <div class={styles.AvatarContainer}>
+    <div class={clsx(styles.AvatarContainer, className)}>
       <img class={styles.AvatarImage} src={src} />
     </div>
   );

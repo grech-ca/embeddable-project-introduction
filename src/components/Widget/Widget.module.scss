@@ -1,6 +1,8 @@
+@import '../../style/mixins';
 @import '../../style/variables';
 
 .Widget {
+  box-sizing: border-box;
   font-family: Arial;
   display: flex;
   align-items: center;
@@ -12,12 +14,11 @@
   padding-right: 24px;
   background: $background;
   color: $text;
-  width: fit-content;
-  max-width: 35%;
   width: 100%;
+  max-width: calc(600px - 24px * 2);
   position: fixed;
-  right: 40px;
-  bottom: 40px;
+  right: 24px;
+  bottom: 24px;
   outline: none;
   cursor: pointer;
 
@@ -30,5 +31,30 @@
     position: absolute;
     top: 10px;
     right: 10px;
+  }
+
+  @include screen-lg {
+    max-width: calc(550px - 20px * 2); 
+    right: 20px;
+    bottom: 20px;
+  }
+
+  @include screen-md {
+    max-width: 440px;
+    right: 20px;
+    bottom: 20px;
+  }
+
+  @include screen-sm {
+    max-width: calc(100% - 10px * 2);
+    right: 10px;
+    bottom: 10px;
+  }
+
+  @include screen-xs {
+    max-width: calc(100% - 5px * 2);
+    right: 5px;
+    bottom: 5px;
+    padding: 8px;
   }
 }
