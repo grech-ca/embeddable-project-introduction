@@ -5,8 +5,6 @@ import { AnimatedText, AnimatedTextRef } from 'components/AnimatedText';
 
 import { useRepository } from 'hooks/useRepository';
 
-import { AUTHOR, REPOSITORY_NAME } from '../../constants';
-
 import styles from './Widget.module.scss';
 import { CloseButton } from '../CloseButton';
 import { Avatar } from '../Avatar/Avatar';
@@ -15,7 +13,7 @@ import { Modal } from '../Modal';
 export const Widget: FunctionComponent = () => {
   const widgetRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<AnimatedTextRef>(null);
-  const { loading } = useRepository(`${AUTHOR}/${REPOSITORY_NAME}`);
+  const { loading } = useRepository();
 
   const [dismissed, setDismissed] = useState(false);
   const [detailsShown, setDetailsShown] = useState(false);

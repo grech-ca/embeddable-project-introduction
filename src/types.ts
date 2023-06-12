@@ -32,3 +32,22 @@ export interface Author {
   created_at: string;
   updated_at: string;
 }
+
+export interface Readme {
+  content: string;
+  download_url: string;
+  encoding: string;
+  git_url: string;
+  html_url: string;
+  name: string;
+  path: string;
+  sha: string;
+  size: number;
+  type: string;
+  url: string;
+  _links: {
+    git: string;
+    html: string;
+    self: string;
+  }[];
+}

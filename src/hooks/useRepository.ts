@@ -1,52 +1,47 @@
-import { useEffect, useState, useMemo } from 'preact/compat';
+import { useEffect, useState } from 'preact/compat';
 
-import { Author } from 'types';
+import { Author, Readme } from 'types';
 
-const cache = new Map();
+const cache = new Map<string, { author: Author; description: string }>();
 
-const GH_TOKEN = '';
-
-export const useRepository = (project: string) => {
-  const [author, repository] = useMemo(() => {
-    return project.split('/');
-  }, [project]);
-
+export const useRepository = () => {
   const [description, setDescription] = useState<null | string>(null);
   const [authorData, setAuthorData] = useState<null | Author>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (cache.has(project)) {
-      const data = cache.get(project);
+    const { VITE_APP_GH_TOKEN, VITE_APP_GH_AUTHOR, VITE_APP_GH_REPOSITORY } = import.meta.env;
 
+    const data = cache.get(VITE_APP_GH_REPOSITORY);
+    if (data) {
       setDescription(data.description);
       setAuthorData(data.author);
       setLoading(false);
     } else {
+      const fetchConfig: RequestInit = {
+        headers: {
+          Authorization: `Bearer ${VITE_APP_GH_TOKEN}`,
+        },
+      };
+
       void Promise.all([
-        fetch(`https://api.github.com/repos/${author}/${repository}/readme`, {
-          headers: {
-            Authorization: `Bearer ${GH_TOKEN}`,
-          },
-        }).then(res =>
+        fetch(`https://api.github.com/repos/${VITE_APP_GH_REPOSITORY}/readme`, fetchConfig).then(
+          res => res.json(),
+        ),
+        fetch(`https://api.github.com/users/${VITE_APP_GH_AUTHOR}`, fetchConfig).then(res =>
           res.json(),
         ),
-        fetch(`https://api.github.com/users/${author}`, {
-          headers: {
-            Authorization: `Bearer ${GH_TOKEN}`,
-          },
-        }).then(res => res.json()),
-      ]).then(([{ content }, author]) => {
+      ]).then(([{ content }, author]: [Readme, Author]) => {
         const description = atob(content);
 
         setDescription(description);
         setAuthorData(author);
         setLoading(false);
 
-        cache.set(project, { author, description })
+        cache.set(GH_TOKEN, { author, description });
       });
     }
-  }, [author, project, repository]);
+  }, []);
 
   return { author: authorData, description, loading };
 };

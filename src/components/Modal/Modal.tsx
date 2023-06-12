@@ -9,8 +9,6 @@ import { useEscape } from 'hooks/useEscape';
 import { useClickAway } from 'hooks/useClickAway';
 import { useRepository } from 'hooks/useRepository';
 
-import { AUTHOR, REPOSITORY_NAME } from '../../constants';
-
 import styles from './Modal.module.scss';
 
 export interface ModalProps {
@@ -21,7 +19,7 @@ export interface ModalProps {
 export const Modal: FunctionComponent<ModalProps> = ({ onClose, visible = false }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const { author } = useRepository(`${AUTHOR}/${REPOSITORY_NAME}`);
+  const { author } = useRepository();
 
   useEscape(onClose);
   const modalOverlayRef = useClickAway<HTMLDivElement>(onClose);

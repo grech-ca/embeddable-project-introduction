@@ -4,15 +4,13 @@ import { Markdown } from 'components/Markdown';
 
 import { useRepository } from 'hooks/useRepository';
 
-import { AUTHOR, REPOSITORY_NAME } from '../../constants';
-
 import styles from './Tabs.module.scss';
 import { Tab } from './Tab';
 import { TabsProvider } from './TabsProvider';
 import { TabContent } from './TabContent';
 
 export const Tabs: FunctionComponent = () => {
-  const { description } = useRepository(`${AUTHOR}/${REPOSITORY_NAME}`);
+  const { description } = useRepository();
 
   return (
     <TabsProvider>
