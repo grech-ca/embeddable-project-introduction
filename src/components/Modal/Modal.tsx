@@ -1,4 +1,4 @@
-import { FunctionComponent, Fragment } from 'preact';
+import { FunctionComponent } from 'preact';
 import { createPortal, useEffect, useRef } from 'preact/compat';
 
 import { Avatar } from 'components/Avatar';
@@ -7,7 +7,7 @@ import { CloseButton } from 'components/CloseButton';
 
 import { useEscape } from 'hooks/useEscape';
 import { useClickAway } from 'hooks/useClickAway';
-import { useRepository } from 'hooks/useRepository';
+import { useData } from 'hooks/useData';
 
 import styles from './Modal.module.scss';
 
@@ -19,7 +19,9 @@ export interface ModalProps {
 export const Modal: FunctionComponent<ModalProps> = ({ onClose, visible = false }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const { author } = useRepository();
+  const { data } = useData();
+
+  const { author } = data ?? {};
 
   useEscape(onClose);
   const modalOverlayRef = useClickAway<HTMLDivElement>(onClose);

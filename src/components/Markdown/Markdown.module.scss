@@ -25,4 +25,8 @@
     border-radius: 4px;
     display: block;
   }
+
+  a + a {
+    margin-left: 4px;
+  }
 }

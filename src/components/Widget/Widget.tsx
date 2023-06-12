@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'preact/compat';
 
 import { AnimatedText, AnimatedTextRef } from 'components/AnimatedText';
 
-import { useRepository } from 'hooks/useRepository';
+import { useData } from 'hooks/useData';
 
 import styles from './Widget.module.scss';
 import { CloseButton } from '../CloseButton';
@@ -13,7 +13,7 @@ import { Modal } from '../Modal';
 export const Widget: FunctionComponent = () => {
   const widgetRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<AnimatedTextRef>(null);
-  const { loading, author } = useRepository();
+  const { loading, data } = useData();
 
   const [dismissed, setDismissed] = useState(false);
   const [detailsShown, setDetailsShown] = useState(false);
@@ -50,7 +50,9 @@ export const Widget: FunctionComponent = () => {
     }
   }, [animatedOnce, loading]);
 
-  if (dismissed || loading || !author) return null;
+  if (dismissed || loading || !data) return null;
+
+  const { author } = data;
 
   return (
     <Fragment>
