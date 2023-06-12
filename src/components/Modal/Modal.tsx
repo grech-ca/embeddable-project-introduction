@@ -50,17 +50,27 @@ export const Modal: FunctionComponent<ModalProps> = ({ onClose, visible = false 
     }
   }, [visible, refsReady, overlay, modal]);
 
+  if (!author) return null;
+
   return createPortal(
     <div class={styles.ModalOverlay} ref={modalOverlayRef}>
       <div class={styles.Modal} ref={modalRef}>
-        <CloseButton onClick={onClose} />
-        <div class={styles.ModalHeading}>
-          {author && (
-            <Fragment>
-              <Avatar src={author.avatar_url} />
-              <p>{author.name}</p>
-            </Fragment>
-          )}
+        <div class={styles.ModalHeader}>
+          <div class={styles.HeaderLeft}>
+            <Avatar src={author.avatar_url} />
+            <p>{author.name}</p>
+          </div>
+          <div class={styles.HeaderRight}>
+            <CloseButton onClick={onClose} className={styles.ModalClose} />
+            <a
+              class={styles.RepositoryLink}
+              href={`https://github.com/${import.meta.env.VITE_APP_GH_REPOSITORY}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Go to repository
+            </a>
+          </div>
         </div>
         <Tabs />
       </div>

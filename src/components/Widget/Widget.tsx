@@ -67,7 +67,7 @@ export const Widget: FunctionComponent = () => {
           Hi, I’m Mike, and this is my pet project called Tweeter, click the popup to read more
           about it.
         </AnimatedText>
-        <CloseButton onClick={dismiss} />
+        <CloseButton onClick={dismiss} className={styles.WidgetClose} />
       </div>
     </Fragment>
   );
